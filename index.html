@@ -670,6 +670,87 @@
                 height: 135px;
             }
         }
+
+        /* Tablet & Mobile */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                gap: 22px;
+            }
+
+            .hero {
+                gap: 12px;
+            }
+
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+
+            .name {
+                font-size: clamp(24px, 6vw, 30px);
+            }
+
+            .title {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .btn,
+            .cta-wrapper,
+            .cat-cta {
+                width: 100%;
+                max-width: 100%;
+                flex: 1 1 100%;
+            }
+
+            .btn {
+                min-height: 52px;
+            }
+
+            /* Cat: mobile-friendly, semi-awake, not hidden */
+            .cat {
+                top: -36px;
+            }
+
+            .cat .eye.sleep {
+                opacity: 0.3;
+            }
+
+            .cat .eye.awake {
+                opacity: 1;
+            }
+
+            .cat-btn {
+                padding-top: 42px;
+            }
+
+            .cat-btn:active .cat {
+                transform: translateX(-50%) translateY(-4px);
+            }
+
+            /* Lighter background FX on mobile for perf */
+            .bg-grid {
+                opacity: 0.22;
+                background-size: 120px 120px, 120px 120px;
+                transform: perspective(900px) rotateX(70deg) translateY(120px) scale(1.1);
+            }
+
+            .bg-glow {
+                opacity: 0.75;
+                filter: blur(18px);
+            }
+
+            .bg-noise {
+                opacity: 0.05;
+            }
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

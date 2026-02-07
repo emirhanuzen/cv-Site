@@ -17,6 +17,7 @@
             --border: rgba(255, 255, 255, 0.12);
             --shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
             --blur: blur(14px);
+            --teknofest-red: #e60000;
         }
 
         * {
@@ -503,6 +504,56 @@
             text-align: left;
         }
 
+        /* NEW KRAP PROJECT CARD STYLES */
+        .project-card {
+            border-color: rgba(0, 212, 255, 0.3);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 212, 255, 0.02) 100%);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .project-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .teknofest-badge {
+            background: linear-gradient(135deg, #d60000, #ff0000);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
         .about-title {
             font-size: 17px;
             font-weight: 700;
@@ -553,6 +604,12 @@
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.1px;
+        }
+
+        .badge.ai {
+            background: rgba(255, 0, 85, 0.15);
+            border-color: rgba(255, 0, 85, 0.4);
+            color: #ff8ca8;
         }
 
         .meta-strip {
@@ -786,26 +843,21 @@
                         target="_blank" rel="noopener">
                         <div class="cat" aria-hidden="true">
                             <svg width="96" height="70" viewBox="0 0 96 70">
-                                <!-- Ears -->
                                 <path class="ear left" d="M30 26 L18 6 L36 16 Z" />
                                 <path class="ear-inner" d="M29 23 L20 8 L33 16 Z" />
                                 <path class="ear right" d="M66 26 L78 6 L60 16 Z" />
                                 <path class="ear-inner" d="M67 23 L75 8 L62 16 Z" />
 
-                                <!-- Face -->
                                 <rect class="face" x="22" y="18" rx="16" ry="16" width="52" height="38"></rect>
 
-                                <!-- Cheeks -->
                                 <circle class="cheek" cx="34" cy="42" r="4" />
                                 <circle class="cheek" cx="62" cy="42" r="4" />
 
-                                <!-- Eyes sleeping -->
                                 <g class="eye sleep">
                                     <rect x="34" y="34" width="10" height="2" rx="1" />
                                     <rect x="52" y="34" width="10" height="2" rx="1" />
                                 </g>
 
-                                <!-- Eyes awake -->
                                 <g class="eye awake">
                                     <g>
                                         <circle class="eye-white" cx="39" cy="33" r="6" />
@@ -821,17 +873,14 @@
                                     </g>
                                 </g>
 
-                                <!-- Nose & mouth -->
                                 <polygon class="nose" points="48,37 45.5,41 50.5,41" />
                                 <path class="mouth" d="M46 42 Q48 43.5 50 42" />
 
-                                <!-- Whiskers -->
-                                <line class="whisker" x1="24" y1="38" x2="36" y2="38" />
-                                <line class="whisker" x1="24" y1="41" x2="36" y2="40" />
+                                <line class="whisker" x1="24" y="38" x2="36" y2="38" />
+                                <line class="whisker" x1="24" y="41" x2="36" y2="40" />
                                 <line class="whisker" x1="72" y1="38" x2="60" y2="38" />
                                 <line class="whisker" x1="72" y1="41" x2="60" y2="40" />
 
-                                <!-- Paws -->
                                 <g>
                                     <rect class="paw" x="34" y="50" rx="6" ry="6" width="12" height="10" />
                                     <circle class="paw-pad" cx="40" cy="55" r="2" />
@@ -902,6 +951,26 @@
             </div>
         </section>
 
+        <section class="about-card project-card" aria-label="Öne Çıkan Proje">
+            <div class="project-header">
+                <div class="project-title-group">
+                    <div class="project-title">🧬 KRAP – Kalıtsal Risk Analiz Platformu</div>
+                </div>
+                <div class="teknofest-badge"> TEKNOFEST 2026 - Sağlıkta Yapay Zeka</div>
+            </div>
+            <p class="about-text">
+                Sağlıkta Yapay Zeka kategorisi için geliştirdiğimiz bu proje, <strong>Mendel genetiği kurallarını</strong> ve <strong>Google Gemini AI</strong> teknolojisini kullanarak kalıtsal hastalık risklerini analiz eder. Hibrit veritabanı mimarisi (SQL + MongoDB) ile kurgusal soy ağaçları oluşturarak gelecek nesillerdeki hastalık ihtimallerini simüle eder.
+            </p>
+            <div class="badge-group">
+                <div class="badge-group-sub">Kullanılan Teknolojiler</div>
+                <div class="badges">
+                    <span class="badge ai">Google Gemini AI</span>
+                    <span class="badge">Python (Flask)</span>
+                    <span class="badge">Next.js</span>
+                    <span class="badge">Mendelian Genetics</span>
+                </div>
+            </div>
+        </section>
         <footer>
             <div class="socials" aria-label="İletişim">
                 <a class="icon-link" href="https://www.linkedin.com/in/emirhan-uzen-690369295/" target="_blank"

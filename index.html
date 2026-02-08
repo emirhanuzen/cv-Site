@@ -13,11 +13,11 @@
             --text: #e0e0e0;
             --muted: #b7b7b7;
             --accent: #00d4ff;
+            --success: #00ff88; /* Canlı Proje Yeşili */
             --card: rgba(255, 255, 255, 0.04);
             --border: rgba(255, 255, 255, 0.12);
             --shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
             --blur: blur(14px);
-            --teknofest-red: #e60000;
         }
 
         * {
@@ -179,7 +179,6 @@
             overflow: hidden;
             white-space: nowrap;
             margin-bottom: 10px;
-            /* push content below away from subtitle */
         }
 
         .title::after {
@@ -198,7 +197,6 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 18px;
-            /* separate from title so cat doesn't overlap text */
             align-items: center;
             width: min(780px, 100%);
         }
@@ -223,13 +221,6 @@
             box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
             text-align: center;
             white-space: nowrap;
-        }
-
-        .btn.primary {
-            background: linear-gradient(135deg, #00d4ff, #18a9ff);
-            color: #0b0b0b;
-            border: none;
-            box-shadow: 0 14px 36px rgba(0, 212, 255, 0.35);
         }
 
         .cta-wrapper {
@@ -261,15 +252,8 @@
         }
 
         @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-6px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         /* Cat CTA */
@@ -288,7 +272,6 @@
             width: 100%;
             padding: 14px 15px 16px;
             padding-top: 44px;
-            /* raise text under cat */
             background: linear-gradient(135deg, #00d4ff, #007bff);
             color: #0b0b0b;
             font-weight: 800;
@@ -297,19 +280,14 @@
             border: none;
             border-radius: 14px;
             text-decoration: none;
-            box-shadow:
-                0 14px 32px rgba(0, 212, 255, 0.38),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+            box-shadow: 0 14px 32px rgba(0, 212, 255, 0.38), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
             transition: transform 0.18s ease, box-shadow 0.22s ease, filter 0.18s ease;
             overflow: visible;
         }
 
-        .cat-btn:hover,
-        .cat-btn:focus-visible {
+        .cat-btn:hover, .cat-btn:focus-visible {
             transform: translateY(-2px) scale(1.01);
-            box-shadow:
-                0 18px 42px rgba(0, 212, 255, 0.45),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 18px 42px rgba(0, 212, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
             filter: brightness(1.04);
         }
 
@@ -331,165 +309,35 @@
             pointer-events: none;
         }
 
-        .cat-btn:hover .cat,
-        .cat-btn:focus-visible .cat {
+        .cat-btn:hover .cat, .cat-btn:focus-visible .cat {
             transform: translateX(-50%) translateY(-2px);
         }
 
-        .cat svg {
-            overflow: visible;
-        }
+        .cat svg { overflow: visible; }
+        .cat .face { fill: #121a26; stroke: #7fe8ff; stroke-width: 2; filter: drop-shadow(0 8px 16px rgba(0, 212, 255, 0.25)); }
+        .cat .ear { fill: #121a26; stroke: #7fe8ff; stroke-width: 2; transform-origin: center; transition: transform 0.2s ease; }
+        .cat .ear-inner { fill: #9be6ff; opacity: 0.9; }
+        .cat-btn:hover .ear.left, .cat-btn:focus-visible .ear.left { transform: translate(-1px, -2px) rotate(-2deg); }
+        .cat-btn:hover .ear.right, .cat-btn:focus-visible .ear.right { transform: translate(1px, -2px) rotate(2deg); }
+        .cat .eye { transition: opacity 0.2s ease; }
+        .cat .eye.sleep { opacity: 1; }
+        .cat .eye.awake { opacity: 0; }
+        .cat-btn:hover .eye.sleep, .cat-btn:focus-visible .eye.sleep { opacity: 0; }
+        .cat-btn:hover .eye.awake, .cat-btn:focus-visible .eye.awake { opacity: 1; }
+        .cat .eye-white { fill: #f7fcff; }
+        .cat .eye-pupil { fill: #0a1a2a; }
+        .cat .eye-sparkle { fill: #9be6ff; }
+        .cat .nose { fill: #ff9ac5; }
+        .cat .mouth { stroke: #0a1a2a; stroke-width: 2; stroke-linecap: round; }
+        .cat .cheek { fill: #ffb3d7; opacity: 0.9; }
+        .cat .paw { fill: #121a26; stroke: #7fe8ff; stroke-width: 1.6; filter: drop-shadow(0 4px 8px rgba(0, 212, 255, 0.2)); }
+        .cat .paw-pad { fill: #9be6ff; opacity: 0.9; }
+        .cat .whisker { stroke: #9be6ff; stroke-width: 2; stroke-linecap: round; opacity: 0.85; }
 
-        .cat .face {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 2;
-            filter: drop-shadow(0 8px 16px rgba(0, 212, 255, 0.25));
-        }
-
-        .cat .ear {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 2;
-            transform-origin: center;
-            transition: transform 0.2s ease;
-        }
-
-        .cat .ear-inner {
-            fill: #9be6ff;
-            opacity: 0.9;
-        }
-
-        .cat-btn:hover .ear.left,
-        .cat-btn:focus-visible .ear.left {
-            transform: translate(-1px, -2px) rotate(-2deg);
-        }
-
-        .cat-btn:hover .ear.right,
-        .cat-btn:focus-visible .ear.right {
-            transform: translate(1px, -2px) rotate(2deg);
-        }
-
-        .cat .eye {
-            transition: opacity 0.2s ease;
-        }
-
-        .cat .eye.sleep {
-            opacity: 1;
-        }
-
-        .cat .eye.awake {
-            opacity: 0;
-        }
-
-        .cat-btn:hover .eye.sleep,
-        .cat-btn:focus-visible .eye.sleep {
-            opacity: 0;
-        }
-
-        .cat-btn:hover .eye.awake,
-        .cat-btn:focus-visible .eye.awake {
-            opacity: 1;
-        }
-
-        .cat .eye-white {
-            fill: #f7fcff;
-        }
-
-        .cat .eye-pupil {
-            fill: #0a1a2a;
-        }
-
-        .cat .eye-sparkle {
-            fill: #9be6ff;
-        }
-
-        .cat .nose {
-            fill: #ff9ac5;
-        }
-
-        .cat .mouth {
-            stroke: #0a1a2a;
-            stroke-width: 2;
-            stroke-linecap: round;
-        }
-
-        .cat .cheek {
-            fill: #ffb3d7;
-            opacity: 0.9;
-        }
-
-        .cat .paw {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 1.6;
-            filter: drop-shadow(0 4px 8px rgba(0, 212, 255, 0.2));
-        }
-
-        .cat .paw-pad {
-            fill: #9be6ff;
-            opacity: 0.9;
-        }
-
-        .cat .whisker {
-            stroke: #9be6ff;
-            stroke-width: 2;
-            stroke-linecap: round;
-            opacity: 0.85;
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
+        .btn:hover, .btn:focus-visible {
             transform: translateY(-1px);
             box-shadow: 0 16px 34px rgba(0, 212, 255, 0.22);
             border-color: rgba(0, 212, 255, 0.4);
-        }
-
-        .btn.fun {
-            gap: 6px;
-            background: #1c1f26;
-            color: var(--text);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 12px 26px rgba(0, 212, 255, 0.2);
-            padding: 11px 14px;
-            white-space: nowrap;
-            max-width: 230px;
-            flex: 0 0 auto;
-            margin-left: auto;
-        }
-
-        .btn.fun:hover,
-        .btn.fun:focus-visible {
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 16px 32px rgba(0, 212, 255, 0.28);
-        }
-
-        .btn.fun .arrow {
-            display: inline-block;
-            animation: wiggleLeft 1.4s ease-in-out infinite;
-        }
-
-        .arrow-inline {
-            display: inline-block;
-            margin-left: 6px;
-            animation: wiggleLeft 1.4s ease-in-out infinite;
-        }
-
-        @keyframes wiggleLeft {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            50% {
-                transform: translateX(-4px);
-            }
-        }
-
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: none;
         }
 
         .about-card {
@@ -554,259 +402,100 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        .about-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 0.2px;
-        }
-
-        .about-text {
-            color: var(--muted);
-            line-height: 1.65;
-            font-size: 15px;
-            margin: 0 0 14px;
-        }
-
-        .badges {
+        /* YENİ EKLENEN AKTİF PROJE AYIRICI STİLİ */
+        .section-separator {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            margin: 20px 0 5px; /* KRAP kartına yakın olsun */
+            padding: 0 5px;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
             gap: 8px;
-        }
-
-        .badge-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .badge-group-title {
-            color: var(--muted);
-            font-size: 15px;
-            letter-spacing: 0.2px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            padding: 6px 14px;
+            border-radius: 99px;
+            color: var(--success);
             font-weight: 700;
-        }
-
-        .badge-group-sub {
-            color: var(--text);
             font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
-
-        .badge {
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(0, 212, 255, 0.12);
-            color: var(--text);
-            border: 1px solid rgba(0, 212, 255, 0.35);
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.1px;
-        }
-
-        .badge.ai {
-            background: rgba(255, 0, 85, 0.15);
-            border-color: rgba(255, 0, 85, 0.4);
-            color: #ff8ca8;
-        }
-
-        .meta-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 18px;
-            align-items: center;
-            color: var(--muted);
-            font-size: 13px;
-            letter-spacing: 0.05px;
-            margin-top: 10px;
-        }
-
-        .meta-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
             white-space: nowrap;
         }
 
-        .meta-icon {
-            color: var(--accent);
-            font-size: 14px;
-            display: inline-flex;
+        .pulsing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success);
+            border-radius: 50%;
+            animation: pulse-green 1.5s infinite;
         }
 
-        .experience-banner {
-            margin-top: 12px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text);
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.5;
+        .separator-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.5), transparent);
         }
 
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 13px;
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
         }
 
-        .socials {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-        }
+        .about-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.2px; }
+        .about-text { color: var(--muted); line-height: 1.65; font-size: 15px; margin: 0 0 14px; }
+        .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge-group { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+        .badge-group-title { color: var(--muted); font-size: 15px; letter-spacing: 0.2px; font-weight: 700; }
+        .badge-group-sub { color: var(--text); font-size: 13px; font-weight: 600; letter-spacing: 0.2px; }
+        .badge { padding: 8px 12px; border-radius: 999px; background: rgba(0, 212, 255, 0.12); color: var(--text); border: 1px solid rgba(0, 212, 255, 0.35); font-size: 13px; font-weight: 600; letter-spacing: 0.1px; }
+        .badge.ai { background: rgba(255, 0, 85, 0.15); border-color: rgba(255, 0, 85, 0.4); color: #ff8ca8; }
+        .meta-strip { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; color: var(--muted); font-size: 13px; letter-spacing: 0.05px; margin-top: 10px; }
+        .meta-item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+        .meta-icon { color: var(--accent); font-size: 14px; display: inline-flex; }
+        .experience-banner { margin-top: 12px; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); color: var(--text); border-radius: 12px; font-size: 14px; line-height: 1.5; }
 
-        .icon-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            color: var(--text);
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: #1a1a1a;
-            transition: transform 0.12s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-        }
+        footer { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 6px; color: var(--muted); font-size: 13px; }
+        .socials { display: flex; gap: 14px; justify-content: center; }
+        .icon-link { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--text); text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.08); background: #1a1a1a; transition: transform 0.12s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+        .icon-link:hover, .icon-link:focus-visible { border-color: rgba(0, 212, 255, 0.45); color: var(--accent); box-shadow: 0 12px 24px rgba(0, 212, 255, 0.18); transform: translateY(-1px); }
 
-        .icon-link:hover,
-        .icon-link:focus-visible {
-            border-color: rgba(0, 212, 255, 0.45);
-            color: var(--accent);
-            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.18);
-            transform: translateY(-1px);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes blink {
-
-            0%,
-            50% {
-                opacity: 1;
-            }
-
-            50.01%,
-            100% {
-                opacity: 0;
-            }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
         @media (max-width: 640px) {
-            .actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: none;
-            }
-
-            .about-card {
-                text-align: left;
-            }
-
-            .avatar {
-                width: 135px;
-                height: 135px;
-            }
+            .actions { flex-direction: column; }
+            .btn { width: 100%; max-width: none; }
+            .about-card { text-align: left; }
+            .avatar { width: 135px; height: 135px; }
         }
 
         /* Tablet & Mobile */
         @media (max-width: 768px) {
-            main {
-                width: 95%;
-                gap: 22px;
-            }
-
-            .hero {
-                gap: 12px;
-            }
-
-            .avatar {
-                width: 150px;
-                height: 150px;
-            }
-
-            .name {
-                font-size: clamp(24px, 6vw, 30px);
-            }
-
-            .title {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 8px;
-            }
-
-            .btn,
-            .cta-wrapper,
-            .cat-cta {
-                width: 100%;
-                max-width: 100%;
-                flex: 1 1 100%;
-            }
-
-            .btn {
-                min-height: 52px;
-            }
-
+            main { width: 95%; gap: 22px; }
+            .hero { gap: 12px; }
+            .avatar { width: 150px; height: 150px; }
+            .name { font-size: clamp(24px, 6vw, 30px); }
+            .title { font-size: 14px; margin-bottom: 8px; }
+            .actions { flex-direction: column; width: 100%; gap: 8px; }
+            .btn, .cta-wrapper, .cat-cta { width: 100%; max-width: 100%; flex: 1 1 100%; }
+            .btn { min-height: 52px; }
             /* Cat: mobile-friendly, semi-awake, not hidden */
-            .cat {
-                top: -36px;
-            }
-
-            .cat .eye.sleep {
-                opacity: 0.3;
-            }
-
-            .cat .eye.awake {
-                opacity: 1;
-            }
-
-            .cat-btn {
-                padding-top: 42px;
-            }
-
-            .cat-btn:active .cat {
-                transform: translateX(-50%) translateY(-4px);
-            }
-
+            .cat { top: -36px; }
+            .cat .eye.sleep { opacity: 0.3; }
+            .cat .eye.awake { opacity: 1; }
+            .cat-btn { padding-top: 42px; }
+            .cat-btn:active .cat { transform: translateX(-50%) translateY(-4px); }
             /* Lighter background FX on mobile for perf */
-            .bg-grid {
-                opacity: 0.22;
-                background-size: 120px 120px, 120px 120px;
-                transform: perspective(900px) rotateX(70deg) translateY(120px) scale(1.1);
-            }
-
-            .bg-glow {
-                opacity: 0.75;
-                filter: blur(18px);
-            }
-
-            .bg-noise {
-                opacity: 0.05;
-            }
+            .bg-grid { opacity: 0.22; background-size: 120px 120px, 120px 120px; transform: perspective(900px) rotateX(70deg) translateY(120px) scale(1.1); }
+            .bg-glow { opacity: 0.75; filter: blur(18px); }
+            .bg-noise { opacity: 0.05; }
         }
     </style>
     <script>
@@ -839,7 +528,7 @@
             <div class="actions" aria-label="Primary actions">
                 <div class="cta-wrapper cat-cta">
                     <a class="cat-btn"
-                        href="https://drive.google.com/file/d/1J6-jWlpARGIpooEIXonDB659sJ_BzYB0/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1g5C7Epb-4xwhjEBKt5ICpOOYY6eBFN7Z/view?usp=sharing"
                         target="_blank" rel="noopener">
                         <div class="cat" aria-hidden="true">
                             <svg width="96" height="70" viewBox="0 0 96 70">
@@ -891,7 +580,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="cat-label">📄 Güncel CV’yi Hemen Gör</span>
+                        <span class="cat-label">📄 CV’yi Hemen Gör</span>
                     </a>
                     <div class="cta-hint">✨ Daha fazlası için detaylı incele</div>
                 </div>
@@ -951,12 +640,19 @@
             </div>
         </section>
 
+        <div class="section-separator">
+            <div class="live-indicator">
+                <div class="pulsing-dot"></div>
+                Canlı & Erişime Açık Projeler
+            </div>
+            <div class="separator-line"></div>
+        </div>
         <section class="about-card project-card" aria-label="Öne Çıkan Proje">
             <div class="project-header">
                 <div class="project-title-group">
                     <div class="project-title">🧬 KRAP – Kalıtsal Risk Analiz Platformu</div>
                 </div>
-                <div class="teknofest-badge"> TEKNOFEST 2026 - Sağlıkta Yapay Zeka</div>
+                <div class="teknofest-badge">🏆 TEKNOFEST 2026 - İnsanlık Yararına Teknoloji</div>
             </div>
             <p class="about-text">
                 Sağlıkta Yapay Zeka kategorisi için geliştirdiğimiz bu proje, <strong>Mendel genetiği kurallarını</strong> ve <strong>Google Gemini AI</strong> teknolojisini kullanarak kalıtsal hastalık risklerini analiz eder. Hibrit veritabanı mimarisi (SQL + MongoDB) ile kurgusal soy ağaçları oluşturarak gelecek nesillerdeki hastalık ihtimallerini simüle eder.
@@ -964,13 +660,21 @@
             <div class="badge-group">
                 <div class="badge-group-sub">Kullanılan Teknolojiler</div>
                 <div class="badges">
-                    <span class="badge ai">Kendi Risk Modelimiz</span>
+                    <span class="badge ai">Risk Analiz Modelimiz</span>
                     <span class="badge">Python (Flask)</span>
                     <span class="badge">Next.js</span>
                     <span class="badge">Mendelian Genetics</span>
                 </div>
             </div>
-        </section>
+            <div style="margin-top: 16px;">
+                <a class="btn" href="https://github.com/emirhanuzen/Kalitsal-Hastaliklar-Takibi" target="_blank" rel="noopener" style="width: 100%; border-color: var(--success); color: var(--success);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.43 7.86 10.96.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.02-3.2.7-3.88-1.54-3.88-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.07-.73.08-.72.08-.72 1.18.08 1.8 1.22 1.8 1.22 1.05 1.8 2.75 1.28 3.42.98.11-.76.41-1.28.74-1.57-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.26 1.2-3.05-.12-.29-.52-1.44.12-3 0 0 .98-.31 3.2 1.17a11.1 11.1 0 0 1 2.92-.39c.99 0 1.99.13 2.92.39 2.21-1.48 3.19-1.17 3.19-1.17.64 1.56.24 2.71.12 3 .75.79 1.2 1.8 1.2 3.05 0 4.39-2.69 5.35-5.25 5.63.42.36.8 1.08.8 2.18 0 1.58-.02 2.85-.02 3.24 0 .31.21.66.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path>
+                    </svg>
+                    Projeyi GitHub'da İncele & Kaynak Kodlar
+                </a>
+            </div>
+            </section>
         <footer>
             <div class="socials" aria-label="İletişim">
                 <a class="icon-link" href="https://www.linkedin.com/in/emirhan-uzen-690369295/" target="_blank"

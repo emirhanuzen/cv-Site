@@ -1,1035 +1,398 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7PFNG0ED7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-V7PFNG0ED7');
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emirhan Uzen | Kişisel Sayfa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emirhan Uzen | Backend Developer</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
         :root {
-            --bg: #121212;
-            --text: #e0e0e0;
-            --muted: #b7b7b7;
-            --accent: #00d4ff;
-            --success: #00ff88;
-            /* Canlı Proje Yeşili */
-            --card: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.12);
-            --shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-            --blur: blur(14px);
+            --bg-color: #050810;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --transition: all 0.3s ease;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(180deg, #0f2027 0%, #203a43 45%, #2c5364 100%);
-            color: var(--text);
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            padding: 32px 18px;
-            position: relative;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
-            overflow-y: auto;
+            position: relative;
         }
 
-        .bg-grid {
+        /* Dijital Yağmur Efekti İçin Canvas */
+        #rainCanvas {
             position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(0, 220, 255, 0.28) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 220, 255, 0.28) 1px, transparent 1px);
-            background-size: 140px 140px, 140px 140px;
-            transform: perspective(900px) rotateX(68deg) translateY(110px) scale(1.2);
-            opacity: 0.38;
-            animation: gridMove 14s linear infinite alternate;
-            pointer-events: none;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.25; 
         }
 
-        .bg-glow {
-            position: fixed;
-            inset: -20% -10% 0 -10%;
-            background:
-                radial-gradient(circle at 50% 25%, rgba(0, 220, 255, 0.45), rgba(18, 45, 60, 0.35) 35%, rgba(12, 26, 36, 0.9) 70%),
-                radial-gradient(circle at 50% 60%, rgba(0, 180, 255, 0.28), transparent 45%);
-            filter: blur(14px);
-            opacity: 0.95;
-            animation: glowPulse 14s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
+        /* Navbar */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(5, 8, 16, 0.8); backdrop-filter: blur(12px);
+            padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+        nav h1 { font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; color: var(--accent); }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+        nav a:hover { color: var(--accent); }
 
-        .bg-scan {
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.035) 0px,
-                    rgba(255, 255, 255, 0.035) 1px,
-                    transparent 1px,
-                    transparent 4px);
-            opacity: 0.08;
-            mix-blend-mode: screen;
-            pointer-events: none;
-            z-index: 0;
+        /* Section Ayarları */
+        section { padding: 120px 5% 50px; max-width: 1200px; margin: 0 auto; }
+        h2.section-title { font-size: 2rem; margin-bottom: 2rem; display: inline-block; border-bottom: 3px solid var(--accent); padding-bottom: 5px; }
+
+        /* Hero Section (Ana Ekran) */
+        #hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .hero-content { flex: 1; max-width: 650px; }
+        
+        .hero-content h2 { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+        .hero-content h3 { font-size: 1.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+        
+        /* --- 3D Duvar ve Oturan Figür Efekti --- */
+        .greeting-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 50px;
+            margin-left: 20px;
+            margin-bottom: 15px;
         }
-
-        .bg-noise {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.08;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 0.7px, transparent 0.7px);
-            background-size: 80px 80px;
-            animation: noiseShift 18s ease-in-out infinite alternate;
-        }
-
-        @keyframes gridMove {
-            from {
-                transform: perspective(900px) rotateX(68deg) translateY(120px) scale(1.2) translateX(0);
-            }
-
-            to {
-                transform: perspective(900px) rotateX(68deg) translateY(80px) scale(1.2) translateX(-40px);
-            }
-        }
-
-        @keyframes glowPulse {
-
-            0%,
-            100% {
-                opacity: 0.95;
-                filter: blur(14px);
-            }
-
-            50% {
-                opacity: 0.82;
-                filter: blur(18px);
-            }
-        }
-
-        @keyframes noiseShift {
-            from {
-                transform: translate3d(0, 0, 0);
-            }
-
-            to {
-                transform: translate3d(-20px, 12px, 0);
-            }
-        }
-
-        main {
-            width: min(900px, 100%);
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.35), rgba(0, 212, 255, 0.08));
-            border: 2px solid rgba(0, 212, 255, 0.5);
-            box-shadow:
-                0 0 30px rgba(0, 212, 255, 0.45),
-                inset 0 0 24px rgba(0, 212, 255, 0.22);
-            overflow: hidden;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        
+        .mono-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 1.3rem;
             display: block;
-        }
-
-        .hero {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            align-items: center;
-        }
-
-        .name {
-            font-size: clamp(28px, 5vw, 36px);
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
-        .title {
-            font-size: 16px;
-            color: var(--muted);
-            letter-spacing: 0.3px;
-            height: 22px;
             position: relative;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-bottom: 10px;
+            z-index: 2;
+            padding: 5px 15px 5px 10px;
+            /* 3D Duvar Efekti */
+            text-shadow: 
+                -1px 1px 0px #0ea5e9,
+                -2px 2px 0px #0284c7,
+                -3px 3px 0px #0369a1,
+                -4px 4px 5px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
+            border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+            border-left: 2px solid rgba(56, 189, 248, 0.3);
+            transform: skewX(-10deg);
         }
 
-        .title::after {
-            content: '';
+        .sitting-figure {
             position: absolute;
-            right: 0;
-            width: 1px;
-            height: 100%;
-            background: var(--accent);
-            animation: blink 0.9s steps(1) infinite;
+            bottom: 80%; /* Duvarın üstüne oturtur */
+            left: -40px; /* Sola doğru ayak sarkıtma mesafesi */
+            z-index: 10;
+            animation: float-sit 3s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
         }
 
-        .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 18px;
-            align-items: center;
-            width: min(780px, 100%);
+        @keyframes float-sit {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-4px) rotate(-2deg); }
         }
 
+        /* Fotoğraf Alanı */
+        .hero-image-container { 
+            flex: 0 0 350px; 
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-top: 40px;
+        }
+        .img-glow {
+            position: absolute; width: 100%; height: 100%; background: var(--accent);
+            filter: blur(60px); opacity: 0.2; z-index: 1; animation: pulse 4s infinite alternate;
+        }
+        .profile-img {
+            width: 100%; max-width: 350px; aspect-ratio: 1/1; object-fit: cover;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 3px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+            animation: morph 8s ease-in-out infinite; z-index: 2;
+            object-position: center 20%;
+        }
+        @keyframes pulse { 0% { opacity: 0.15; transform: scale(0.9); } 100% { opacity: 0.3; transform: scale(1.05); } }
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: translateY(-10px); }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* Butonlar */
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn {
-            flex: 1 1 240px;
-            padding: 12px 18px;
-            min-height: 52px;
-            max-width: 320px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            border: 1px solid transparent;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--text);
-            background: #1f1f1f;
-            border-color: rgba(255, 255, 255, 0.08);
-            transition: transform 0.12s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-            text-align: center;
-            white-space: nowrap;
+            display: flex; align-items: center; gap: 8px; padding: 0.8rem 1.2rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif;
+            transition: var(--transition); border: 1px solid rgba(56, 189, 248, 0.3);
+            background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); color: var(--text-main);
         }
+        .btn i { font-size: 1.1rem; }
+        .btn-mail { background: var(--accent); color: #000; border: none; box-shadow: 0 0 15px var(--accent-glow); }
+        .btn-mail:hover { background: #0ea5e9; color: #fff; transform: translateY(-3px); }
+        .btn-linkedin:hover { background: #0077b5; border-color: #0077b5; transform: translateY(-3px); }
+        .btn-github:hover { background: #333; border-color: #333; transform: translateY(-3px); }
 
-        .cta-wrapper {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            flex: 1 1 200px;
-            max-width: 230px;
+        /* Yetenekler ve Diğer Kısımlar */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.5rem; }
+        .skill-tag { background: rgba(56, 189, 248, 0.1); color: var(--accent); font-family: 'JetBrains Mono', monospace; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(56, 189, 248, 0.2); }
+
+        .timeline { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 20px; margin-left: 10px; }
+        .exp-item { margin-bottom: 2.5rem; position: relative; }
+        .exp-item::before { content: ''; position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+        .exp-role { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .exp-company { font-size: 1rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+        
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition); backdrop-filter: blur(10px); }
+        .project-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .project-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; display: flex; justify-content: space-between; }
+        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
+        .project-tech span { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px; }
+
+        footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; color: var(--text-muted); }
+        
+        /* Mobil Uyumluluk */
+        @media (max-width: 992px) {
+            #hero { flex-direction: column-reverse; text-align: center; justify-content: center; margin-top: 40px; }
+            .hero-buttons { justify-content: center; }
+            .hero-image-container { flex: 0 0 250px; width: 250px; margin-bottom: 2rem; }
+            .hero-content h2 { font-size: 3rem; }
         }
-
-        .cta-wrapper .btn {
-            width: 100%;
-            max-width: 230px;
-        }
-
-        .cta-hint {
-            padding: 7px 12px;
-            border-radius: 12px;
-            background: rgba(0, 212, 255, 0.14);
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
-            animation: bounce 1.6s ease-in-out infinite;
-            white-space: nowrap;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-
-        /* Cat CTA */
-        .cat-cta {
-            max-width: 230px;
-            width: 100%;
-            flex: 1 1 200px;
-        }
-
-        .cat-btn {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 14px 15px 16px;
-            padding-top: 44px;
-            background: linear-gradient(135deg, #00d4ff, #007bff);
-            color: #0b0b0b;
-            font-weight: 800;
-            font-size: 15px;
-            letter-spacing: 0.2px;
-            border: none;
-            border-radius: 14px;
-            text-decoration: none;
-            box-shadow: 0 14px 32px rgba(0, 212, 255, 0.38), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-            transition: transform 0.18s ease, box-shadow 0.22s ease, filter 0.18s ease;
-            overflow: visible;
-        }
-
-        .cat-btn:hover,
-        .cat-btn:focus-visible {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 18px 42px rgba(0, 212, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-            filter: brightness(1.04);
-        }
-
-        .cat-label {
-            color: #0b0b0b;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        /* Kawaii Cat */
-        .cat {
-            position: absolute;
-            top: -44px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 96px;
-            height: 70px;
-            transition: transform 0.25s ease;
-            pointer-events: none;
-        }
-
-        .cat-btn:hover .cat,
-        .cat-btn:focus-visible .cat {
-            transform: translateX(-50%) translateY(-2px);
-        }
-
-        .cat svg {
-            overflow: visible;
-        }
-
-        .cat .face {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 2;
-            filter: drop-shadow(0 8px 16px rgba(0, 212, 255, 0.25));
-        }
-
-        .cat .ear {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 2;
-            transform-origin: center;
-            transition: transform 0.2s ease;
-        }
-
-        .cat .ear-inner {
-            fill: #9be6ff;
-            opacity: 0.9;
-        }
-
-        .cat-btn:hover .ear.left,
-        .cat-btn:focus-visible .ear.left {
-            transform: translate(-1px, -2px) rotate(-2deg);
-        }
-
-        .cat-btn:hover .ear.right,
-        .cat-btn:focus-visible .ear.right {
-            transform: translate(1px, -2px) rotate(2deg);
-        }
-
-        .cat .eye {
-            transition: opacity 0.2s ease;
-        }
-
-        .cat .eye.sleep {
-            opacity: 1;
-        }
-
-        .cat .eye.awake {
-            opacity: 0;
-        }
-
-        .cat-btn:hover .eye.sleep,
-        .cat-btn:focus-visible .eye.sleep {
-            opacity: 0;
-        }
-
-        .cat-btn:hover .eye.awake,
-        .cat-btn:focus-visible .eye.awake {
-            opacity: 1;
-        }
-
-        .cat .eye-white {
-            fill: #f7fcff;
-        }
-
-        .cat .eye-pupil {
-            fill: #0a1a2a;
-        }
-
-        .cat .eye-sparkle {
-            fill: #9be6ff;
-        }
-
-        .cat .nose {
-            fill: #ff9ac5;
-        }
-
-        .cat .mouth {
-            stroke: #0a1a2a;
-            stroke-width: 2;
-            stroke-linecap: round;
-        }
-
-        .cat .cheek {
-            fill: #ffb3d7;
-            opacity: 0.9;
-        }
-
-        .cat .paw {
-            fill: #121a26;
-            stroke: #7fe8ff;
-            stroke-width: 1.6;
-            filter: drop-shadow(0 4px 8px rgba(0, 212, 255, 0.2));
-        }
-
-        .cat .paw-pad {
-            fill: #9be6ff;
-            opacity: 0.9;
-        }
-
-        .cat .whisker {
-            stroke: #9be6ff;
-            stroke-width: 2;
-            stroke-linecap: round;
-            opacity: 0.85;
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
-            transform: translateY(-1px);
-            box-shadow: 0 16px 34px rgba(0, 212, 255, 0.22);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-
-        .about-card {
-            width: 100%;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 22px 22px 18px;
-            box-shadow: var(--shadow);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            text-align: left;
-        }
-
-        /* NEW KRAP PROJECT CARD STYLES */
-        .project-card {
-            border-color: rgba(0, 212, 255, 0.3);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 212, 255, 0.02) 100%);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .project-title-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .teknofest-badge {
-            background: linear-gradient(135deg, #d60000, #ff0000);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
-            animation: pulse-red 2s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
-            }
-
-            70% {
-                box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-            }
-        }
-
-        /* YENİ EKLENEN AKTİF PROJE AYIRICI STİLİ */
-        .section-separator {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            margin: 20px 0 5px;
-            /* KRAP kartına yakın olsun */
-            padding: 0 5px;
-        }
-
-        .live-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.4);
-            padding: 6px 14px;
-            border-radius: 99px;
-            color: var(--success);
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
-            white-space: nowrap;
-        }
-
-        .pulsing-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--success);
-            border-radius: 50%;
-            animation: pulse-green 1.5s infinite;
-        }
-
-        .separator-line {
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(0, 255, 136, 0.5), transparent);
-        }
-
-        @keyframes pulse-green {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 6px rgba(0, 255, 136, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
-            }
-        }
-
-        .about-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 0.2px;
-        }
-
-        .about-text {
-            color: var(--muted);
-            line-height: 1.65;
-            font-size: 15px;
-            margin: 0 0 14px;
-        }
-
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .badge-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .badge-group-title {
-            color: var(--muted);
-            font-size: 15px;
-            letter-spacing: 0.2px;
-            font-weight: 700;
-        }
-
-        .badge-group-sub {
-            color: var(--text);
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
-
-        .badge {
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(0, 212, 255, 0.12);
-            color: var(--text);
-            border: 1px solid rgba(0, 212, 255, 0.35);
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.1px;
-        }
-
-        .badge.ai {
-            background: rgba(255, 0, 85, 0.15);
-            border-color: rgba(255, 0, 85, 0.4);
-            color: #ff8ca8;
-        }
-
-        .meta-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 18px;
-            align-items: center;
-            color: var(--muted);
-            font-size: 13px;
-            letter-spacing: 0.05px;
-            margin-top: 10px;
-        }
-
-        .meta-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-
-        .meta-icon {
-            color: var(--accent);
-            font-size: 14px;
-            display: inline-flex;
-        }
-
-        .experience-banner {
-            margin-top: 12px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text);
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .socials {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-        }
-
-        .icon-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            color: var(--text);
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: #1a1a1a;
-            transition: transform 0.12s ease,
-                border-color 0.2s ease,
-                color 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-        .icon-link:hover,
-        .icon-link:focus-visible {
-            border-color: rgba(0, 212, 255, 0.45);
-            color: var(--accent);
-            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.18);
-            transform: translateY(-1px);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes blink {
-
-            0%,
-            50% {
-                opacity: 1;
-            }
-
-            50.01%,
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: none;
-            }
-
-            .about-card {
-                text-align: left;
-            }
-
-            .avatar {
-                width: 135px;
-                height: 135px;
-            }
-        }
-
-        /* Tablet & Mobile */
         @media (max-width: 768px) {
-            main {
-                width: 95%;
-                gap: 22px;
-            }
-
-            .hero {
-                gap: 12px;
-            }
-
-            .avatar {
-                width: 150px;
-                height: 150px;
-            }
-
-            .name {
-                font-size: clamp(24px, 6vw, 30px);
-            }
-
-            .title {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 8px;
-            }
-
-            .btn,
-            .cta-wrapper,
-            .cat-cta {
-                width: 100%;
-                max-width: 100%;
-                flex: 1 1 100%;
-            }
-
-            .btn {
-                min-height: 52px;
-            }
-
-            /* Cat: mobile-friendly, semi-awake, not hidden */
-            .cat {
-                top: -36px;
-            }
-
-            .cat .eye.sleep {
-                opacity: 0.3;
-            }
-
-            .cat .eye.awake {
-                opacity: 1;
-            }
-
-            .cat-btn {
-                padding-top: 42px;
-            }
-
-            .cat-btn:active .cat {
-                transform: translateX(-50%) translateY(-4px);
-            }
-
-            /* Lighter background FX on mobile for perf */
-            .bg-grid {
-                opacity: 0.22;
-                background-size: 120px 120px, 120px 120px;
-                transform: perspective(900px) rotateX(70deg) translateY(120px) scale(1.1);
-            }
-
-            .bg-glow {
-                opacity: 0.75;
-                filter: blur(18px);
-            }
-
-            .bg-noise {
-                opacity: 0.05;
-            }
+            nav ul { display: none; }
+            section { padding: 90px 5% 40px; }
         }
     </style>
+</head>
+<body>
+
+    <!-- Arka Plan Mavi Yağmur Efekti (Canvas) -->
+    <canvas id="rainCanvas"></canvas>
+
+    <nav>
+        <h1><E.U /></h1>
+        <ul>
+            <li><a href="#about">Hakkımda</a></li>
+            <li><a href="#experience">Deneyim</a></li>
+            <li><a href="#projects">Projeler</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            
+            <!-- Özel 3D Duvar ve Oturan Figür Alanı -->
+            <div class="greeting-wrapper">
+                <!-- Oturan Neon Çöp Adam SVG -->
+                <svg class="sitting-figure" viewBox="0 0 100 100" width="80" height="80">
+                    <g stroke="#38bdf8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                        <!-- Kafa -->
+                        <circle cx="70" cy="30" r="7" fill="#38bdf8"/>
+                        <!-- Gövde -->
+                        <path d="M 70 37 C 68 50, 65 60, 65 70" />
+                        <!-- Sola uzanan bacak (Duvarın üstünde) -->
+                        <line x1="65" y1="70" x2="35" y2="70" />
+                        <!-- Aşağı sarkan bacak -->
+                        <line x1="35" y1="70" x2="30" y2="95" />
+                        <!-- Klavyeye uzanan kollar -->
+                        <path d="M 70 45 C 60 50, 50 50, 45 55" />
+                    </g>
+                    <!-- Kucaktaki Laptop -->
+                    <path d="M 22 55 L 45 55 L 42 40 Z" fill="#0ea5e9" opacity="0.9"/>
+                    <rect x="20" y="55" width="28" height="3" rx="1.5" fill="#f8fafc"/>
+                </svg>
+                
+                <span class="mono-tag">Merhaba, ben</span>
+            </div>
+
+            <h2>Emirhan Uzen.</h2>
+            <h3>Backend Geliştirici & Yazılım Mühendisi.</h3>
+            <p>Yüksek performanslı REST API servisleri geliştiriyor, sağlam ve ölçeklenebilir backend sistemleri tasarlıyorum. Karmaşık iş mantıklarını; veri odaklı, güvenli ve hata toleransı yüksek kurumsal altyapılara dönüştürüyorum.</p>
+            
+            <div class="hero-buttons">
+                <a href="mailto:emirhan.uzen@gmail.com" class="btn btn-mail">
+                    <i class="fa-solid fa-envelope"></i> Mail Gönder
+                </a>
+                <a href="https://www.linkedin.com/in/emirhan-uzen-690369295/?isSelfProfile=true" target="_blank" class="btn btn-linkedin">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/emirhanuzen" target="_blank" class="btn btn-github">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-image-container">
+            <div class="img-glow"></div>
+            <img src="profil.jpeg" alt="Emirhan Uzen" class="profile-img">
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">Hakkımda</h2>
+        <p style="color: var(--text-muted); max-width: 800px; margin-bottom: 1rem;">
+            Yazılım Mühendisliği 4. sınıf öğrencisi ve ölçeklenebilir sistemlere odaklanan bir Backend Geliştiriciyim. Python (FastAPI), PostgreSQL ve yöneticileriyle asenkron (RabbitMQ/Celery) katmanlı (layered) ve olay güdümlü (event-driven) backend mimarileri tasarlıyor; büyük veri (Big Data) işleme ve doğrulama süreçlerini Geliştirdiğim sistemleri konteynerleştirerek yönetiyorum. Docker ile üretim ortamına entegre ediyorum. Ayrıca Java ve C# ile nesne yönelimli (OOP) kurumsal mimariler geliştiriyorum. Arka uç yetkinliklerimi; Flutter ile çapraz platform projeler, NLP (Voice to Action) otomasyonları ve özel ML modellerinin backend entegrasyonuyla destekliyorum. Aktif TEKNOFEST sürecimizde Scrum Master olarak Çevik (Agile) metodolojileri yönetiyor; hata toleransı yüksek ve veri odaklı yazılım mimarileri inşa ediyorum.
+        </p>
+        <div class="skills-grid">
+            <span class="skill-tag">Python (FastAPI, Flask)</span>
+            <span class="skill-tag">Java (Spring)</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">PostgreSQL / MongoDB / MS SQL</span>
+            <span class="skill-tag">RabbitMQ & Celery</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Flutter</span>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">İş Deneyimleri</h2>
+        <div class="timeline">
+            <div class="exp-item">
+                <div class="exp-role">Backend Geliştirici (Stajyer)</div>
+                <div class="exp-company">Parabol | Temmuz 2023 - Eylül 2023</div>
+                <p class="project-desc">Büyük veri (GTFS) işleyen asenkron ve olay güdümlü backend mimarilerinin tasarlanması ve çok katmanlı doğrulama servislerinin geliştirilmesi süreçlerinde aktif rol aldım.</p>
+            </div>
+            <div class="exp-item">
+                <div class="exp-role">Web Geliştirici</div>
+                <div class="exp-company">Fırat Üniversitesi Proje Koordinasyon Merkezi | Nisan 2025 - Temmuz 2025</div>
+                <p class="project-desc">Merkezin dijital yüzü olan resmi web altyapısının içerik yönetimini, performans optimizasyonlarını ve periyodik teknik bakımlarını uçtan uca koordine ettim.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Öne Çıkan Projeler</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-title">
+                    KRAP (Kalıtsal Risk Analizi)
+                    <i class="fa-solid fa-dna" style="color: var(--accent);"></i>
+                </div>
+                <p class="project-desc">Sentetik soy ağaçları üzerinden genetik hastalıkları analiz eden TEKNOFEST 2026 projesi. Özgün ML modeli ile patojenik variant analizi.</p>
+                <div class="project-tech">
+                    <span>Python</span> <span>Flask</span> <span>Machine Learning</span> <span>Gemini AI</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">
+                    GTFS Büyük Veri Servisi
+                    <i class="fa-solid fa-database" style="color: var(--accent);"></i>
+                </div>
+                <p class="project-desc">Toplu taşıma verilerinin (GTFS) işlendiği, hata toleranslı (retry/idempotency) asenkron backend servisi (Parabol staj projesi).</p>
+                <div class="project-tech">
+                    <span>FastAPI</span> <span>Celery</span> <span>RabbitMQ</span> <span>PostgreSQL</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">
+                    İHA Filo Telemetri Sistemi
+                    <i class="fa-solid fa-plane-up" style="color: var(--accent);"></i>
+                </div>
+                <p class="project-desc">Birden fazla İHA'nın anlık verisini asenkron işleyen, kural motoru ile anomali tespiti yapan JWT tabanlı REST API.</p>
+                <div class="project-tech">
+                    <span>FastAPI</span> <span>RabbitMQ</span> <span>PostgreSQL</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">
+                    Banking Fraud Detection
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i>
+                </div>
+                <p class="project-desc">Banka işlem verisini gerçek zamanlı işleyip, şüpheli işlemlerde hesapları donduran event-driven sahtekarlık tespit sistemi.</p>
+                <div class="project-tech">
+                    <span>FastAPI</span> <span>Celery</span> <span>Pandas</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">
+                    VoiceToAction
+                    <i class="fa-solid fa-microphone" style="color: var(--accent);"></i>
+                </div>
+                <p class="project-desc">Video/ses kayıtlarını NLP/ML algoritmaları ve LLM entegrasyonlarıyla otomatik aksiyonlara dönüştüren çapraz platform mobil uygulama.</p>
+                <div class="project-tech">
+                    <span>NLP</span> <span>LLM</span> <span>Flutter</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Emirhan Uzen. Tüm Hakları Saklıdır.</p>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const title = document.querySelector('.title');
-            const fullText = 'Yazılım Mühendisliği 3. Sınıf Öğrencisi';
-            let idx = 0;
-            function type() {
-                title.textContent = fullText.slice(0, idx);
-                idx = idx < fullText.length ? idx + 1 : fullText.length;
-                if (idx < fullText.length + 1) setTimeout(type, 70);
+        // Smooth Scrolling 
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mavi Dijital Yağmur Efekti (Blue Digital Rain)
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = '01'; // Sadece 0 ve 1 lerden oluşan akış
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(5, 8, 16, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0ea5e9'; // Tema rengine uygun parlak mavi
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
-            type();
+        }
+        
+        setInterval(draw, 33);
+        
+        // Ekran boyutu değiştiğinde canvası yenile
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
     </script>
-</head>
-
-<body>
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
-    <div class="bg-noise"></div>
-    <div class="bg-scan"></div>
-    <main style="position: relative; z-index: 1;">
-        <div class="hero">
-            <div class="avatar" aria-hidden="true">
-                <img src="pp.jpg" alt="Emirhan Uzen">
-            </div>
-            <div class="name">Emirhan Uzen</div>
-            <div class="title" aria-label="Yazılım Mühendisliği 3. Sınıf Öğrencisi"></div>
-            <div class="actions" aria-label="Primary actions">
-                <div class="cta-wrapper cat-cta">
-                    <a class="cat-btn"
-                        href="https://drive.google.com/file/d/1J6-jWlpARGIpooEIXonDB659sJ_BzYB0/view?usp=sharing"
-                        target="_blank" rel="noopener">
-                        <div class="cat" aria-hidden="true">
-                            <svg width="96" height="70" viewBox="0 0 96 70">
-                                <path class="ear left" d="M30 26 L18 6 L36 16 Z" />
-                                <path class="ear-inner" d="M29 23 L20 8 L33 16 Z" />
-                                <path class="ear right" d="M66 26 L78 6 L60 16 Z" />
-                                <path class="ear-inner" d="M67 23 L75 8 L62 16 Z" />
-
-                                <rect class="face" x="22" y="18" rx="16" ry="16" width="52" height="38"></rect>
-
-                                <circle class="cheek" cx="34" cy="42" r="4" />
-                                <circle class="cheek" cx="62" cy="42" r="4" />
-
-                                <g class="eye sleep">
-                                    <rect x="34" y="34" width="10" height="2" rx="1" />
-                                    <rect x="52" y="34" width="10" height="2" rx="1" />
-                                </g>
-
-                                <g class="eye awake">
-                                    <g>
-                                        <circle class="eye-white" cx="39" cy="33" r="6" />
-                                        <circle class="eye-pupil" cx="39" cy="34" r="3.2" />
-                                        <circle class="eye-sparkle" cx="37.8" cy="32.5" r="1.2" />
-                                        <circle class="eye-sparkle" cx="40.4" cy="35.5" r="0.9" />
-                                    </g>
-                                    <g>
-                                        <circle class="eye-white" cx="57" cy="33" r="6" />
-                                        <circle class="eye-pupil" cx="57" cy="34" r="3.2" />
-                                        <circle class="eye-sparkle" cx="55.8" cy="32.5" r="1.2" />
-                                        <circle class="eye-sparkle" cx="58.4" cy="35.5" r="0.9" />
-                                    </g>
-                                </g>
-
-                                <polygon class="nose" points="48,37 45.5,41 50.5,41" />
-                                <path class="mouth" d="M46 42 Q48 43.5 50 42" />
-
-                                <line class="whisker" x1="24" y="38" x2="36" y2="38" />
-                                <line class="whisker" x1="24" y="41" x2="36" y2="40" />
-                                <line class="whisker" x1="72" y1="38" x2="60" y2="38" />
-                                <line class="whisker" x1="72" y1="41" x2="60" y2="40" />
-
-                                <g>
-                                    <rect class="paw" x="34" y="50" rx="6" ry="6" width="12" height="10" />
-                                    <circle class="paw-pad" cx="40" cy="55" r="2" />
-                                </g>
-                                <g>
-                                    <rect class="paw" x="50" y="50" rx="6" ry="6" width="12" height="10" />
-                                    <circle class="paw-pad" cx="56" cy="55" r="2" />
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="cat-label">📄 CV’yi Hemen Gör</span>
-                    </a>
-                    <div class="cta-hint">✨ Daha fazlası için detaylı incele</div>
-                </div>
-                <a class="btn" href="https://github.com/EmirhanUzen" target="_blank" rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-                        style="margin-right:6px;">
-                        <path
-                            d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.43 7.86 10.96.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.02-3.2.7-3.88-1.54-3.88-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.07-.73.08-.72.08-.72 1.18.08 1.8 1.22 1.8 1.22 1.05 1.8 2.75 1.28 3.42.98.11-.76.41-1.28.74-1.57-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.26 1.2-3.05-.12-.29-.52-1.44.12-3 0 0 .98-.31 3.2 1.17a11.1 11.1 0 0 1 2.92-.39c.99 0 1.99.13 2.92.39 2.21-1.48 3.19-1.17 3.19-1.17.64 1.56.24 2.71.12 3 .75.79 1.2 1.8 1.2 3.05 0 4.39-2.69 5.35-5.25 5.63.42.36.8 1.08.8 2.18 0 1.58-.02 2.85-.02 3.24 0 .31.21.66.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-                    </svg>
-                    Tüm projelerim için <span class="arrow-inline">→</span> GitHub Profilim
-                </a>
-            </div>
-        </div>
-
-        <section class="about-card" aria-label="Hakkımda">
-            <div class="about-title">Hakkımda</div>
-            <p class="about-text">
-                Merhabalar, ben Emirhan Uzen. Elazığ'da Fırat Üniversitesi'nde okuyorum, Yazılım Mühendisliği 3. sınıf
-                öğrencisiyim. C# programlama dili ile masaüstü otomasyon sistemleri geliştiriyorum. Aynı zamanda
-                Python kullanarak Flask ve Django frameworkleri ile dinamik web siteleri ve projeler üretiyorum. Bir
-                projede Scrum Master olarak görev yaptım ve yazılım süreçlerini yönettim. Sorumluluk bilinci yüksek
-                biriyim; ekip içi çalışmalarda deneyimliyim ve takımla uyum içinde çalışmaya özen gösteririm.
-            </p>
-            <div class="badge-group" aria-label="Teknoloji rozetleri">
-                <div class="badge-group-title">Teknik Yetkinliklerim</div>
-                <div class="badge-group-sub">Yazılım Dilleri</div>
-                <div class="badges">
-                    <span class="badge">C#</span>
-                    <span class="badge">Python</span>
-                    <span class="badge">Java</span>
-                </div>
-            </div>
-            <div class="badge-group">
-                <div class="badge-group-sub">Frameworkler</div>
-                <div class="badges">
-                    <span class="badge">Django</span>
-                    <span class="badge">Flask</span>
-                    <span class="badge">FastAPI</span>
-                    <span class="badge">Laravel</span>
-                </div>
-            </div>
-            <div class="badge-group">
-                <div class="badge-group-sub">Veritabanı / Araçlar</div>
-                <div class="badges">
-                    <span class="badge">SQL</span>
-                    <span class="badge">MongoDB</span>
-                    <span class="badge">Git</span>
-                </div>
-            </div>
-            <div class="meta-strip" aria-label="Öne çıkan kısa bilgiler">
-                <span class="meta-item"><span class="meta-icon">📍</span>Adana, Turkey</span>
-                <span class="meta-item"><span class="meta-icon">🎓</span>GPA: 3.16</span>
-                <span class="meta-item"><span class="meta-icon">🌍</span>English (B1)</span>
-            </div>
-            <div class="experience-banner" aria-label="Geçmiş Deneyimlerim">
-                Geçmiş Deneyimlerim: Fırat Üniversitesi Proje Koordinatörlük Ofisi — Web Geliştirici & Web Sorumlusu
-                (Nisan 2024 - Temmuz 2024)
-            </div>
-        </section>
-
-        <div class="section-separator">
-            <div class="live-indicator">
-                <div class="pulsing-dot"></div>
-                Canlı & Erişime Açık Projeler
-            </div>
-            <div class="separator-line"></div>
-        </div>
-        <section class="about-card project-card" aria-label="Öne Çıkan Proje">
-            <div class="project-header">
-                <div class="project-title-group">
-                    <div class="project-title">🧬 KRAP – Kalıtsal Risk Analiz Platformu</div>
-                </div>
-                <div class="teknofest-badge">🏆 TEKNOFEST 2026 - İnsanlık Yararına Teknoloji</div>
-            </div>
-            <p class="about-text">
-                Sağlıkta Yapay Zeka kategorisi için geliştirdiğimiz bu proje, <strong>Mendel genetiği kurallarını</strong> ve <strong>Google Gemini AI</strong> teknolojisini kullanarak kalıtsal hastalık risklerini analiz eder. Hibrit veritabanı mimarisi (SQL + MongoDB) ile kurgusal soy ağaçları oluşturarak gelecek nesillerdeki hastalık ihtimallerini simüle eder.
-            </p>
-            <div class="badge-group">
-                <div class="badge-group-sub">Kullanılan Teknolojiler</div>
-                <div class="badges">
-                    <span class="badge ai">Risk Analiz Modelimiz</span>
-                    <span class="badge">Python (Flask)</span>
-                    <span class="badge">Next.js</span>
-                    <span class="badge">Mendelian Genetics</span>
-                </div>
-            </div>
-            <div style="margin-top: 16px;">
-                <a class="btn" href="https://github.com/emirhanuzen/Kalitsal-Hastaliklar-Takibi" target="_blank"
-                    rel="noopener" style="width: 100%; border-color: var(--success); color: var(--success);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
-                        <path
-                            d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.43 7.86 10.96.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.02-3.2.7-3.88-1.54-3.88-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.07-.73.08-.72.08-.72 1.18.08 1.8 1.22 1.8 1.22 1.05 1.8 2.75 1.28 3.42.98.11-.76.41-1.28.74-1.57-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.26 1.2-3.05-.12-.29-.52-1.44.12-3 0 0 .98-.31 3.2 1.17a11.1 11.1 0 0 1 2.92-.39c.99 0 1.99.13 2.92.39 2.21-1.48 3.19-1.17 3.19-1.17.64 1.56.24 2.71.12 3 .75.79 1.2 1.8 1.2 3.05 0 4.39-2.69 5.35-5.25 5.63.42.36.8 1.08.8 2.18 0 1.58-.02 2.85-.02 3.24 0 .31.21.66.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z">
-                        </path>
-                    </svg>
-                    Projeyi GitHub'da İncele & Kaynak Kodlar
-                </a>
-            </div>
-        </section>
-        <footer>
-            <div class="socials" aria-label="İletişim">
-                <a class="icon-link" href="https://www.linkedin.com/in/emirhan-uzen-690369295/" target="_blank"
-                    rel="noopener" aria-label="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.07h4.56V24H.22zM8.77 8.07h4.37v2.17h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 6.99V24h-4.56v-8.1c0-1.93-.03-4.41-2.69-4.41-2.69 0-3.1 2.1-3.1 4.27V24H8.77z" />
-                    </svg>
-                </a>
-                <a class="icon-link" href="mailto:emirhan.uzen@gmail.com" aria-label="E-posta">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" />
-                    </svg>
-                </a>
-                <a class="icon-link" href="https://www.instagram.com/emirhan_uzen1/" target="_blank" rel="noopener"
-                    aria-label="Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7zm5 3.25A3.75 3.75 0 1 1 8.25 12 3.75 3.75 0 0 1 12 8.25zm0 2a1.75 1.75 0 1 0 1.75 1.75A1.75 1.75 0 0 0 12 10.25zM17.5 6.75a1 1 0 1 1-1 1 1 1 0 0 1 1-1z" />
-                    </svg>
-                </a>
-            </div>
-            <div>© 2025 Emirhan Uzen. Tüm hakları saklıdır.</div>
-        </footer>
-    </main>
 </body>
-
 </html>
